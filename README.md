@@ -1,29 +1,29 @@
-# Brigadier [![Build Status](https://dev.azure.com/atomicblom/Brigadier.NET/_apis/build/status/Master%20Build)](https://dev.azure.com/atomicblom/Brigadier.NET/_build/latest?definitionId=3) [![Latest release](https://img.shields.io/github/release/atomicblom/Brigadier.NET.svg)](https://github.com/atomicblom/Brigadier.NET/releases/latest) [![License](https://img.shields.io/github/license/atomicblom/Brigadier.NET.svg)](https://github.com/atomicblom/Brigadier.NET/blob/master/LICENSE)
 
-Brigadier.NET is a port of Mojang's [brigadier](https://github.com/mojang/brigadier) command line parser & dispatcher, originally for Minecraft: Java Edition and now freely available for use elsewhere under the MIT license.
+# UnityBrigadier [![Latest release](https://img.shields.io/github/v/release/KitKat4191/UnityBrigadier.svg)](https://github.com/KitKat4191/UnityBrigadier/releases/latest) [![License](https://img.shields.io/github/license/KitKat4191/UnityBrigadier.svg)](https://github.com/KitKat4191/UnityBrigadier/blob/master/LICENSE)
 
-This port is not supported by Mojang or Microsoft. For any issues, please report to [AtomicBlom/Brigadier.NET](https://www.github.com/AtomicBlom/Brigadier.NET/issues)
+UnityBrigadier is a port of AtomicBlom's [Brigadier.NET](https://github.com/AtomicBlom/Brigadier.NET), which itself is a port of Mojang's [brigadier](https://github.com/mojang/brigadier).
 
-You can use Brigadier.NET with any runtime that supports .NET Standard 1.1 or higher
+Brigadier is a command parser & dispatcher, designed and developed for Minecraft: Java Edition and now freely available for use elsewhere under the MIT license.
 
-# Installation
-<!--Brigadier.NET is available from NuGet, install it via the [BrigadierNET](https://nuget.org/) NuGet package-->
-https://www.nuget.org/packages/Brigadier.NET/
+This port is not supported by AtomicBlom, Mojang, or Microsoft. For any issues, please report to [me](https://github.com/KitKat4191/UnityBrigadier/issues).
 
-You can install the package from [NuGet](https://www.nuget.org/packages/Brigadier.NET)
+# How to install
 
-PackageManager:
-```powershell
-PM> Install-Package Brigadier.NET
-```
+## Option 1: Unity Package Manager
 
-dotnet:
-```cmd
-dotnet add package Brigadier.NET
-```
+* On the top bar in Unity click `Window > Package Manager`.
+* Click the `[+]` in the top left of the `Package Manager` window.
+* Select `Add package from git URL...` in the dropdown menu.
+* Paste this link: `https://github.com/KitKat4191/UnityBrigadier.git?path=/Packages/com.kitkat.unity-brigadier`
+* Click `Add` on the right side of the link input field.
 
-# Contributing
-Contributions are welcome ! :D
+
+## Option 2: `.unitypackage`
+
+* Download the `.unitypackage` from the [latest release](https://github.com/KitKat4191/UnityBrigadier/releases/latest).
+* Drag the `.unitypackage` from your downloads folder to the `Project` tab in your open Unity project.
+
+___
 
 # Usage
 At the heart of Brigadier, you need a `CommandDispatcher<TSource>`, where `<TSource>` is any custom object you choose to identify a "command source".
@@ -180,4 +180,4 @@ dispatcher.Register(
 
 ```
 
-[![GitHub forks](https://img.shields.io/github/forks/AtomicBlom/Brigadier.NET.svg?style=social&label=Fork)](https://github.com/AtomicBlom/Brigadier.NET/fork) [![GitHub stars](https://img.shields.io/github/stars/AtomicBlom/Brigadier.NET.svg?style=social&label=Stars)](https://github.com/AtomicBlom/Brigadier.NET/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/KitKat4191/UnityBrigadier.svg?style=social&label=Fork)](https://github.com/KitKat4191/UnityBrigadier/fork) [![GitHub stars](https://img.shields.io/github/stars/KitKat4191/UnityBrigadier.svg?style=social&label=Stars)](https://github.com/KitKat4191/UnityBrigadier/stargazers)
