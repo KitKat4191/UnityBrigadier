@@ -1,6 +1,6 @@
 {
   "name": "com.kitkat.unity-brigadier",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "displayName": "Unity Brigadier",
   "description": "Brigadier is a command parser & dispatcher, designed and developed for Minecraft: Java Edition.",
   "author": {
