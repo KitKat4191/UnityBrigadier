@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Brigadier.NET.Util;
+
+using HashCode = Brigadier.NET.Util.HashCode;
 
 namespace Brigadier.NET.Context
 {
