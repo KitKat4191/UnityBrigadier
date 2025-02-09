@@ -3,12 +3,12 @@
 
 using Brigadier.NET.Context;
 using FluentAssertions;
-using Xunit;
+using NUnit.Framework;
 
 namespace Brigadier.NET.Tests.context
 {
 	public class ParsedArgumentTest {
-		[Fact]
+		[Test]
 		public void TestEquals(){
 			new EqualsTester()
 				.AddEqualityGroup(new ParsedArgument<object, string>(0, 3, "bar"), new ParsedArgument<object, string>(0, 3, "bar"))
@@ -17,7 +17,7 @@ namespace Brigadier.NET.Tests.context
 				.TestEquals();
 		}
 
-		[Fact]
+		[Test]
 		public void GetRaw(){
 			var reader = new StringReader("0123456789");
 			var argument = new ParsedArgument<object, string>(2, 5, "");

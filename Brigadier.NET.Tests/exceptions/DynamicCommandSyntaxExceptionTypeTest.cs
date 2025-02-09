@@ -3,7 +3,7 @@
 
 using Brigadier.NET.Exceptions;
 using FluentAssertions;
-using Xunit;
+using NUnit.Framework;
 
 namespace Brigadier.NET.Tests.exceptions
 {
@@ -15,7 +15,7 @@ namespace Brigadier.NET.Tests.exceptions
 			_type = new DynamicCommandExceptionType(name => new LiteralMessage("Hello, " + name + "!"));
 		}
 
-		[Fact]
+		[Test]
 		public void CreateWithContext(){
 			var reader = new StringReader("Foo bar")
 			{

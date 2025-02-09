@@ -3,20 +3,20 @@
 
 using Brigadier.NET.Exceptions;
 using FluentAssertions;
-using Xunit;
+using NUnit.Framework;
 using static Brigadier.NET.Arguments;
 
 namespace Brigadier.NET.Tests.arguments
 {
 	public class IntegerArgumentTypeTest {
-		[Fact]
+		[Test]
 		public void Parse(){
 			var reader = new StringReader("15");
 			Integer().Parse(reader).Should().Be(15);
 			reader.CanRead().Should().Be(false);
 		}
 
-		[Fact]
+		[Test]
 		public void parse_tooSmall(){
 			var reader = new StringReader("-5");
 			Integer(0, 100).Invoking(l => l.Parse(reader))
@@ -25,7 +25,7 @@ namespace Brigadier.NET.Tests.arguments
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void parse_tooBig(){
 			var reader = new StringReader("5");
 			Integer(-100, 0).Invoking(l => l.Parse(reader))
@@ -34,7 +34,7 @@ namespace Brigadier.NET.Tests.arguments
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void TestEquals(){
 			new EqualsTester()
 				.AddEqualityGroup(Integer(), Integer())
@@ -44,7 +44,7 @@ namespace Brigadier.NET.Tests.arguments
 				.TestEquals();
 		}
 
-		[Fact]
+		[Test]
 		public void TestToString(){
 			Integer().ToString().Should().BeEquivalentTo("integer()");
 			Integer(-100).ToString().Should().BeEquivalentTo("integer(-100)");

@@ -3,19 +3,19 @@
 
 using Brigadier.NET.Exceptions;
 using FluentAssertions;
-using Xunit;
+using NUnit.Framework;
 
 namespace Brigadier.NET.Tests.arguments
 {
 	public class LongArgumentTypeTest {
-		[Fact]
+		[Test]
 		public void Parse(){
 			var reader = new StringReader("15");
 			Arguments.Long().Parse(reader).Should().Be(15L);
 			reader.CanRead().Should().Be(false);
 		}
 
-		[Fact]
+		[Test]
 		public void parse_tooSmall(){
 			var reader = new StringReader("-5");
 			Arguments.Long(0, 100).Invoking(l => l.Parse(reader))
@@ -24,7 +24,7 @@ namespace Brigadier.NET.Tests.arguments
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void parse_tooBig(){
 			var reader = new StringReader("5");
 
@@ -34,7 +34,7 @@ namespace Brigadier.NET.Tests.arguments
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void TestEquals(){
 			new EqualsTester()
 				.AddEqualityGroup(Arguments.Long(), Arguments.Long())
@@ -44,7 +44,7 @@ namespace Brigadier.NET.Tests.arguments
 				.TestEquals();
 		}
 
-		[Fact]
+		[Test]
 		public void TestToString(){
 			Arguments.Long().ToString().Should().BeEquivalentTo("longArg()");
 			Arguments.Long(-100).ToString().Should().BeEquivalentTo("longArg(-100)");

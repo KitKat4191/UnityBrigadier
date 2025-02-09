@@ -3,19 +3,19 @@
 
 using Brigadier.NET.Exceptions;
 using FluentAssertions;
-using Xunit;
+using NUnit.Framework;
 
 namespace Brigadier.NET.Tests.arguments
 {
 	public class DoubleArgumentTypeTest {
-		[Fact]
+		[Test]
 		public void Parse(){
 			var reader = new StringReader("15");
 			Arguments.Double().Parse(reader).Should().Be(15.0);
 			reader.CanRead().Should().Be(false);
 		}
 
-		[Fact]
+		[Test]
 		public void parse_tooSmall(){
 			var reader = new StringReader("-5");
 			Arguments.Double(0, 100).Invoking(l => l.Parse(reader))
@@ -24,7 +24,7 @@ namespace Brigadier.NET.Tests.arguments
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void parse_tooBig(){
 			var reader = new StringReader("5");
 			Arguments.Double(-100, 0).Invoking(l => l.Parse(reader))
@@ -33,7 +33,7 @@ namespace Brigadier.NET.Tests.arguments
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void TestEquals(){
 			new EqualsTester()
 				.AddEqualityGroup(Arguments.Double(), Arguments.Double())
@@ -43,7 +43,7 @@ namespace Brigadier.NET.Tests.arguments
 				.TestEquals();
 		}
 
-		[Fact]
+		[Test]
 		public void TestToString(){
 			Arguments.Double().ToString().Should().BeEquivalentTo("double()");
 			Arguments.Double(-100).ToString().Should().BeEquivalentTo("double(-100.0)");

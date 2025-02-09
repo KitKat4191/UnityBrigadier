@@ -9,54 +9,59 @@ using Brigadier.NET.Suggestion;
 using Brigadier.NET.Tree;
 using FluentAssertions;
 using NSubstitute;
-using Xunit;
+using NUnit.Framework;
 
 namespace Brigadier.NET.Tests.tree
 {
 	public class RootCommandNodeTest : AbstractCommandNodeTest {
-		private readonly RootCommandNode<object> _node;
-
 		protected override CommandNode<object> GetCommandNode() {
-			return _node;
+			return GetNode;
 		}
 
-		public RootCommandNodeTest()
-		{
-			_node = new RootCommandNode<object>();
-		}
+		private RootCommandNode<object> GetNode => new RootCommandNode<object>();
 
-		[Fact]
+		[Test]
 		public void TestParse(){
+			RootCommandNode<object> _node = GetNode;
+			
 			var reader = new StringReader("hello world");
 			_node.Parse(reader, new CommandContextBuilder<object>(new CommandDispatcher<object>(), new object(), new RootCommandNode<object>(), 0));
 			reader.Cursor.Should().Be(0);
 		}
 
-		[Fact]
+		[Test]
 		public void TestAddChildNoRoot(){
+			RootCommandNode<object> _node = GetNode;
+			
 			_node.Invoking(n => n.AddChild(new RootCommandNode<object>()))
 				.Should().Throw<InvalidOperationException>();
 		}
 
-		[Fact]
+		[Test]
 		public void TestUsage(){
+			RootCommandNode<object> _node = GetNode;
+			
 			_node.UsageText.Should().Be("");
 		}
 
-		[Fact]
+		[Test]
 		public async Task TestSuggestions(){
+			RootCommandNode<object> _node = GetNode;
+			
 			var context = Substitute.For<CommandContext<object>>(null, null, null, null, null, null, null, null, null, false);
 			var result = await _node.ListSuggestions(context, new SuggestionsBuilder("", 0));
 			result.IsEmpty().Should().Be(true);
 		}
 
-		[Fact]// (expected = IllegalStateException.class)
+		[Test]// (expected = IllegalStateException.class)
 		public void TestCreateBuilder(){
+			RootCommandNode<object> _node = GetNode;
+			
 			_node.Invoking(n => n.CreateBuilder())
 				.Should().Throw<InvalidOperationException>();
 		}
 
-		[Fact]
+		[Test]
 		public void TestEquals(){
 		
 			new EqualsTester()

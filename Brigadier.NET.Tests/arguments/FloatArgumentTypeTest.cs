@@ -3,20 +3,20 @@
 
 using Brigadier.NET.Exceptions;
 using FluentAssertions;
-using Xunit;
+using NUnit.Framework;
 using static Brigadier.NET.Arguments;
 
 namespace Brigadier.NET.Tests.arguments
 {
 	public class FloatArgumentTypeTest {
-		[Fact]
+		[Test]
 		public void Parse(){
 			var reader = new StringReader("15");
 			Float().Parse(reader).Should().Be(15f);
 			reader.CanRead().Should().Be(false);
 		}
 
-		[Fact]
+		[Test]
 		public void parse_tooSmall(){
 			var reader = new StringReader("-5");
 			Float(0, 100).Invoking(l => l.Parse(reader))
@@ -25,7 +25,7 @@ namespace Brigadier.NET.Tests.arguments
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void parse_tooBig(){
 			var reader = new StringReader("5");
 			Float(-100, 0).Invoking(l => l.Parse(reader))
@@ -34,7 +34,7 @@ namespace Brigadier.NET.Tests.arguments
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void TestEquals(){
 			new EqualsTester()
 				.AddEqualityGroup(Float(), Float())
@@ -44,7 +44,7 @@ namespace Brigadier.NET.Tests.arguments
 				.TestEquals();
 		}
 
-		[Fact]
+		[Test]
 		public void TestToString(){
 			Float().ToString().Should().BeEquivalentTo("float()");
 			Float(-100).ToString().Should().BeEquivalentTo("float(-100.0)");

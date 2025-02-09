@@ -5,25 +5,25 @@ using System.Collections.Generic;
 using Brigadier.NET.Context;
 using Brigadier.NET.Suggestion;
 using FluentAssertions;
-using Xunit;
+using NUnit.Framework;
 
 namespace Brigadier.NET.Tests.suggestion
 {
 	public class SuggestionsTest {
-		[Fact]
+		[Test]
 		public void merge_empty() {
 			var merged = Suggestions.Merge("foo b", new List<Suggestions>());
 			merged.IsEmpty().Should().Be(true);
 		}
 
-		[Fact]
+		[Test]
 		public void merge_single() {
 			var suggestions = new Suggestions(StringRange.At(5), new List<Suggestion.Suggestion> { new Suggestion.Suggestion(StringRange.At(5), "ar") });
 			var merged = Suggestions.Merge("foo b", new List<Suggestions> { suggestions });
 			merged.Should().BeEquivalentTo(suggestions);
 		}
 
-		[Fact]
+		[Test]
 		public void merge_multiple() {
 			var a = new Suggestions(StringRange.At(5), new List<Suggestion.Suggestion> { new Suggestion.Suggestion(StringRange.At(5), "ar"), new Suggestion.Suggestion(StringRange.At(5), "az"), new Suggestion.Suggestion(StringRange.At(5), "Az") });
 			var b = new Suggestions(StringRange.Between(4, 5), new List<Suggestion.Suggestion> { new Suggestion.Suggestion(StringRange.Between(4, 5), "foo"), new Suggestion.Suggestion(StringRange.Between(4, 5), "qux"), new Suggestion.Suggestion(StringRange.Between(4, 5), "apple"), new Suggestion.Suggestion(StringRange.Between(4, 5), "Bar") });

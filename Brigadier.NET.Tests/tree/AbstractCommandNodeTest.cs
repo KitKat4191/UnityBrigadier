@@ -6,7 +6,7 @@ using Brigadier.NET.Builder;
 using Brigadier.NET.Tree;
 using FluentAssertions;
 using NSubstitute;
-using Xunit;
+using NUnit.Framework;
 
 namespace Brigadier.NET.Tests.tree
 {
@@ -15,7 +15,7 @@ namespace Brigadier.NET.Tests.tree
 
 		protected abstract CommandNode<object> GetCommandNode();
 
-		[Fact]
+		[Test]
 		public void TestAddChild(){
 			var node = GetCommandNode();
 
@@ -28,7 +28,7 @@ namespace Brigadier.NET.Tests.tree
 			node.Children.Should().HaveCount(2);
 		}
 
-		[Fact]
+		[Test]
 		public void TestAddChildMergesGrandchildren(){
 			var node = GetCommandNode();
 
@@ -44,7 +44,7 @@ namespace Brigadier.NET.Tests.tree
 			node.Children.First().Children.Should().HaveCount(2);
 		}
 
-		[Fact]
+		[Test]
 		public void TestAddChildPreservesCommand(){
 			var node = GetCommandNode();
 
@@ -54,7 +54,7 @@ namespace Brigadier.NET.Tests.tree
 			node.Children.First().Command.Should().Be(_command);
 		}
 
-		[Fact]
+		[Test]
 		public void TestAddChildOverwritesCommand(){
 			var node = GetCommandNode();
 

@@ -4,13 +4,13 @@
 using Brigadier.NET.ArgumentTypes;
 using FluentAssertions;
 using NSubstitute;
-using Xunit;
+using NUnit.Framework;
 
 namespace Brigadier.NET.Tests.arguments
 {
 	public class StringArgumentTypeTest {
 
-		[Fact]
+		[Test]
 		public void TestParseWord()
 		{
 			var reader = Substitute.For<IStringReader>();
@@ -20,7 +20,7 @@ namespace Brigadier.NET.Tests.arguments
 			reader.Received().ReadUnquotedString();
 		}
 
-		[Fact]
+		[Test]
 		public void TestParseString(){
 			var reader = Substitute.For<IStringReader>();
 			reader.ReadString().Returns("hello world");
@@ -28,40 +28,40 @@ namespace Brigadier.NET.Tests.arguments
 			reader.Received().ReadString();
 		}
 
-		[Fact]
+		[Test]
 		public void TestParseGreedyString(){
 			var reader = new StringReader("Hello world! This is a test.");
 			Arguments.GreedyString().Parse(reader).Should().BeEquivalentTo("Hello world! This is a test.");
 			reader.CanRead().Should().Be(false);
 		}
 
-		[Fact]
+		[Test]
 		public void TestToString(){
 			Arguments.String().ToString().Should().BeEquivalentTo("string()");
 		}
 
-		[Fact]
+		[Test]
 		public void testEscapeIfRequired_notRequired(){
 			StringArgumentType.EscapeIfRequired("hello").Should().BeEquivalentTo("hello");
 			StringArgumentType.EscapeIfRequired("").Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void testEscapeIfRequired_multipleWords(){
 			StringArgumentType.EscapeIfRequired("hello world").Should().BeEquivalentTo("\"hello world\"");
 		}
 
-		[Fact]
+		[Test]
 		public void testEscapeIfRequired_quote(){
 			StringArgumentType.EscapeIfRequired("hello \"world\"!").Should().BeEquivalentTo("\"hello \\\"world\\\"!\"");
 		}
 
-		[Fact]
+		[Test]
 		public void testEscapeIfRequired_escapes(){
 			StringArgumentType.EscapeIfRequired("\\").Should().BeEquivalentTo("\"\\\\\"");
 		}
 
-		[Fact]
+		[Test]
 		public void testEscapeIfRequired_singleQuote(){
 			StringArgumentType.EscapeIfRequired("\"").Should().BeEquivalentTo("\"\\\"\"");
 		}

@@ -5,44 +5,51 @@ using Brigadier.NET.ArgumentTypes;
 using Brigadier.NET.Builder;
 using FluentAssertions;
 using NSubstitute;
-using Xunit;
+using NUnit.Framework;
 
 namespace Brigadier.NET.Tests.builder
 {
-	public class RequiredArgumentBuilderTest {
-		private readonly ArgumentType<int> _type = Substitute.For<ArgumentType<int>>();
-		private readonly RequiredArgumentBuilder<object, int> _builder;
-		private readonly Command<object> _command = Substitute.For<Command<object>>();
+    public class RequiredArgumentBuilderTest
+    {
+        private readonly ArgumentType<int> _type = Substitute.For<ArgumentType<int>>();
 
-		public RequiredArgumentBuilderTest()
-		{
-			_builder = RequiredArgumentBuilder<object, int>.RequiredArgument("foo", _type);
-		}
+        [Test]
+        public void TestBuild()
+        {
+            RequiredArgumentBuilder<object, int> builder =
+                RequiredArgumentBuilder<object, int>.RequiredArgument("foo", _type);
 
-		[Fact]
-		public void TestBuild(){
-			var node = _builder.Build();
+            var node = builder.Build();
 
-			node.Name.Should().Be("foo");
-			node.Type.Should().Be(_type);
-		}
+            node.Name.Should().Be("foo");
+            node.Type.Should().Be(_type);
+        }
 
-		[Fact]
-		public void TestBuildWithExecutor(){
-			var node = _builder.Executes(_command).Build();
+        [Test]
+        public void TestBuildWithExecutor()
+        {
+            RequiredArgumentBuilder<object, int> builder =
+                RequiredArgumentBuilder<object, int>.RequiredArgument("foo", _type);
+            Command<object> command = Substitute.For<Command<object>>();
 
-			node.Name.Should().Be("foo");
-			node.Type.Should().Be(_type);
-			node.Command.Should().Be(_command);
-		}
+            var node = builder.Executes(command).Build();
 
-		[Fact]
-		public void TestBuildWithChildren(){
-			_builder.Then(r => r.Argument("bar", Arguments.Integer()));
-			_builder.Then(r => r.Argument("baz", Arguments.Integer()));
-			var node = _builder.Build();
+            node.Name.Should().Be("foo");
+            node.Type.Should().Be(_type);
+            node.Command.Should().Be(command);
+        }
 
-			node.Children.Should().HaveCount(2);
-		}
-	}
+        [Test]
+        public void TestBuildWithChildren()
+        {
+            RequiredArgumentBuilder<object, int> builder =
+                RequiredArgumentBuilder<object, int>.RequiredArgument("foo", _type);
+
+            builder.Then(r => r.Argument("bar", Arguments.Integer()));
+            builder.Then(r => r.Argument("baz", Arguments.Integer()));
+            var node = builder.Build();
+
+            node.Children.Should().HaveCount(2);
+        }
+    }
 }

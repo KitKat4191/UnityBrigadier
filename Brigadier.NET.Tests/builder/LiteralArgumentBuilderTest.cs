@@ -4,42 +4,44 @@
 using Brigadier.NET.Builder;
 using FluentAssertions;
 using NSubstitute;
-using Xunit;
+using NUnit.Framework;
 
 namespace Brigadier.NET.Tests.builder
 {
-	public class LiteralArgumentBuilderTest {
-		private readonly LiteralArgumentBuilder<object> _builder;
-		private readonly Command<object> _command = Substitute.For<Command<object>>();
+    public class LiteralArgumentBuilderTest
+    {
+        [Test]
+        public void TestBuild()
+        {
+            LiteralArgumentBuilder<object> builder = new LiteralArgumentBuilder<object>("foo");
 
-		public LiteralArgumentBuilderTest()
-		{
-			_builder = new LiteralArgumentBuilder<object>("foo");
-		}
+            var node = builder.Build();
 
-		[Fact]
-		public void TestBuild(){
-			var node = _builder.Build();
+            node.Literal.Should().Be("foo");
+        }
 
-			node.Literal.Should().Be("foo");
-		}
+        [Test]
+        public void TestBuildWithExecutor()
+        {
+            LiteralArgumentBuilder<object> builder = new LiteralArgumentBuilder<object>("foo");
+            Command<object> command = Substitute.For<Command<object>>();
 
-		[Fact]
-		public void TestBuildWithExecutor(){
-			var node = _builder.Executes(_command).Build();
+            var node = builder.Executes(command).Build();
 
-			node.Literal.Should().Be("foo");
-			node.Command.Should().Be(_command);
-		}
+            node.Literal.Should().Be("foo");
+            node.Command.Should().Be(command);
+        }
 
-		[Fact]
-		public void TestBuildWithChildren()
-		{
-			_builder.Then(r => r.Argument("bar", Arguments.Integer()));
-			_builder.Then(r => r.Argument("baz", Arguments.Integer()));
-			var node = _builder.Build();
+        [Test]
+        public void TestBuildWithChildren()
+        {
+            LiteralArgumentBuilder<object> builder = new LiteralArgumentBuilder<object>("foo");
 
-			node.Children.Should().HaveCount(2);
-		}
-	}
+            builder.Then(r => r.Argument("bar", Arguments.Integer()));
+            builder.Then(r => r.Argument("baz", Arguments.Integer()));
+            var node = builder.Build();
+
+            node.Children.Should().HaveCount(2);
+        }
+    }
 }

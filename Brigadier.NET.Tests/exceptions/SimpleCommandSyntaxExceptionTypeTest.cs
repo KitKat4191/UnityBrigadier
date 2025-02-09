@@ -4,12 +4,12 @@
 using Brigadier.NET.Exceptions;
 using FluentAssertions;
 using NSubstitute;
-using Xunit;
+using NUnit.Framework;
 
 namespace Brigadier.NET.Tests.exceptions
 {
 	public class SimpleCommandSyntaxExceptionTypeTest {
-		[Fact]
+		[Test]
 		public void CreateWithContext(){
 			var type = new SimpleCommandExceptionType(new LiteralMessage("error"));
 			var reader = new StringReader("Foo bar")
@@ -23,20 +23,20 @@ namespace Brigadier.NET.Tests.exceptions
 		}
 
 
-		[Fact]
+		[Test]
 		public void getContext_none(){
 			var exception = new CommandSyntaxException(Substitute.For<ICommandExceptionType>(), new LiteralMessage("error"));
 			exception.Context.Should().BeNull();
 		}
 
-		[Fact]
+		[Test]
 		public void getContext_short(){
 			var exception = new CommandSyntaxException(Substitute.For<ICommandExceptionType>(), new LiteralMessage("error"), "Hello world!", 5);
 
 			exception.Context.Should().BeEquivalentTo("Hello<--[HERE]");
 		}
 
-		[Fact]
+		[Test]
 		public void getContext_long(){
 			var exception = new CommandSyntaxException(Substitute.For<ICommandExceptionType>(), new LiteralMessage("error"), "Hello world! This has an error in it. Oh dear!", 20);
 			exception.Context.Should().BeEquivalentTo("...d! This ha<--[HERE]");

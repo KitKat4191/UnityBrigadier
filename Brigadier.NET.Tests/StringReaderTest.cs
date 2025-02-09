@@ -1,12 +1,12 @@
 using Brigadier.NET.Exceptions;
 using FluentAssertions;
-using Xunit;
+using NUnit.Framework;
 
 namespace Brigadier.NET.Tests
 {
 	public class StringReaderTest
 	{
-		[Fact]
+		[Test]
 		public void CanRead()
 		{
 			var reader = new StringReader("abc");
@@ -19,7 +19,7 @@ namespace Brigadier.NET.Tests
 			reader.CanRead().Should().BeFalse();
 		}
 
-		[Fact]
+		[Test]
 		public void RemainingLength()
 		{
 			var reader = new StringReader("abc");
@@ -32,7 +32,7 @@ namespace Brigadier.NET.Tests
 			reader.RemainingLength.Should().Be(0);
 		}
 
-		[Fact]
+		[Test]
 		public void canRead_length()
 		{
 			var reader = new StringReader("abc");
@@ -43,7 +43,7 @@ namespace Brigadier.NET.Tests
 			reader.CanRead(5).Should().BeFalse();
 		}
 
-		[Fact]
+		[Test]
 		public void Peek()
 		{
 			var reader = new StringReader("abc");
@@ -54,7 +54,7 @@ namespace Brigadier.NET.Tests
 			reader.Cursor.Should().Be(2);
 		}
 
-		[Fact]
+		[Test]
 		public void peek_length()
 		{
 			var reader = new StringReader("abc");
@@ -66,7 +66,7 @@ namespace Brigadier.NET.Tests
 			reader.Cursor.Should().Be(1);
 		}
 
-		[Fact]
+		[Test]
 		public void Read()
 		{
 			var reader = new StringReader("abc");
@@ -76,7 +76,7 @@ namespace Brigadier.NET.Tests
 			reader.Cursor.Should().Be(3);
 		}
 
-		[Fact]
+		[Test]
 		public void Skip()
 		{
 			var reader = new StringReader("abc");
@@ -84,7 +84,7 @@ namespace Brigadier.NET.Tests
 			reader.Cursor.Should().Be(1);
 		}
 
-		[Fact]
+		[Test]
 		public void Remaining()
 		{
 			var reader = new StringReader("Hello!");
@@ -95,7 +95,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void GetRead()
 		{
 			var reader = new StringReader("Hello!");
@@ -106,7 +106,7 @@ namespace Brigadier.NET.Tests
 			reader.Read.Should().BeEquivalentTo("Hello!");
 		}
 
-		[Fact]
+		[Test]
 		public void skipWhitespace_none()
 		{
 			var reader = new StringReader("Hello!");
@@ -114,7 +114,7 @@ namespace Brigadier.NET.Tests
 			reader.Cursor.Should().Be(0);
 		}
 
-		[Fact]
+		[Test]
 		public void skipWhitespace_mixed()
 		{
 			var reader = new StringReader(" \t \t\nHello!");
@@ -122,7 +122,7 @@ namespace Brigadier.NET.Tests
 			reader.Cursor.Should().Be(5);
 		}
 
-		[Fact]
+		[Test]
 		public void skipWhitespace_empty()
 		{
 			var reader = new StringReader("");
@@ -130,7 +130,7 @@ namespace Brigadier.NET.Tests
 			reader.Cursor.Should().Be(0);
 		}
 
-		[Fact]
+		[Test]
 		public void ReadUnquotedString()
 		{
 			var reader = new StringReader("hello world");
@@ -139,7 +139,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo(" world");
 		}
 
-		[Fact]
+		[Test]
 		public void readUnquotedString_empty()
 		{
 			var reader = new StringReader("");
@@ -148,7 +148,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readUnquotedString_empty_withRemaining()
 		{
 			var reader = new StringReader(" hello world");
@@ -157,7 +157,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo(" hello world");
 		}
 
-		[Fact]
+		[Test]
 		public void ReadQuotedString()
 		{
 			var reader = new StringReader("\"hello world\"");
@@ -166,7 +166,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-        [Fact]
+        [Test]
         public void ReadSingleQuotedString()
         {
             var reader = new StringReader("'hello world'");
@@ -175,7 +175,7 @@ namespace Brigadier.NET.Tests
             reader.Remaining.Should().BeEquivalentTo("");
         }
 
-        [Fact]
+        [Test]
         public void ReadMixedQuotedString_DoubleInsideSingle()
         {
             var reader = new StringReader(@"'hello ""world""'");
@@ -184,7 +184,7 @@ namespace Brigadier.NET.Tests
             reader.Remaining.Should().BeEquivalentTo("");
         }
 
-        [Fact]
+        [Test]
         public void ReadMixedQuotedString_SingleInsideDouble()
         {
             var reader = new StringReader(@"""hello 'world'""");
@@ -193,7 +193,7 @@ namespace Brigadier.NET.Tests
             reader.Remaining.Should().BeEquivalentTo("");
         }
 
-		[Fact]
+		[Test]
 		public void readQuotedString_empty()
 		{
 			var reader = new StringReader("");
@@ -202,7 +202,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readQuotedString_emptyQuoted()
 		{
 			var reader = new StringReader("\"\"");
@@ -211,7 +211,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readQuotedString_emptyQuoted_withRemaining()
 		{
 			var reader = new StringReader("\"\" hello world");
@@ -220,7 +220,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo(" hello world");
 		}
 
-		[Fact]
+		[Test]
 		public void readQuotedString_withEscapedQuote()
 		{
 			var reader = new StringReader("\"hello \\\"world\\\"\"");
@@ -229,7 +229,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readQuotedString_withEscapedEscapes()
 		{
 			var reader = new StringReader("\"\\\\o/\"");
@@ -238,7 +238,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readQuotedString_withRemaining()
 		{
 			var reader = new StringReader("\"hello world\" foo bar");
@@ -247,7 +247,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo(" foo bar");
 		}
 
-		[Fact]
+		[Test]
 		public void readQuotedString_withImmediateRemaining()
 		{
 			var reader = new StringReader("\"hello world\"foo bar");
@@ -256,7 +256,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("foo bar");
 		}
 
-		[Fact]
+		[Test]
 		public void readQuotedString_noOpen()
 		{
 			var reader = new StringReader("hello world\"");
@@ -267,7 +267,7 @@ namespace Brigadier.NET.Tests
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void readQuotedString_noClose()
 		{
 			var reader = new StringReader("\"hello world");
@@ -278,7 +278,7 @@ namespace Brigadier.NET.Tests
 				.Where(ex => ex.Cursor == 12);
 		}
 
-		[Fact]
+		[Test]
 		public void readQuotedString_invalidEscape()
 		{
 			var reader = new StringReader("\"hello\\nworld\"");
@@ -289,7 +289,7 @@ namespace Brigadier.NET.Tests
 				.Where(ex => ex.Cursor == 7);
 		}
 
-        [Fact]
+        [Test]
         public void ReadQuotedString_InvalidQuoteEscape()
         {
             var reader = new StringReader("'hello\\\"\'world");
@@ -300,7 +300,7 @@ namespace Brigadier.NET.Tests
                 .Where(ex => ex.Cursor == 7);
 		}
 
-        [Fact]
+        [Test]
         public void ReadQuotedString_NoQuotes()
         {
             var reader = new StringReader("hello world");
@@ -309,7 +309,7 @@ namespace Brigadier.NET.Tests
             reader.Remaining.Should().BeEquivalentTo(" world");
 		}
 
-        [Fact]
+        [Test]
         public void ReadQuotedString_SingleQuotes()
         {
             var reader = new StringReader("'hello world'");
@@ -318,7 +318,7 @@ namespace Brigadier.NET.Tests
             reader.Remaining.Should().BeEquivalentTo("");
         }
 
-        [Fact]
+        [Test]
         public void ReadQuotedString_DoubleQuotes()
         {
             var reader = new StringReader(@"""hello world""");
@@ -327,7 +327,7 @@ namespace Brigadier.NET.Tests
             reader.Remaining.Should().BeEquivalentTo("");
         }
 
-		[Fact]
+		[Test]
 		public void ReadInt()
 		{
 			var reader = new StringReader("1234567890");
@@ -336,7 +336,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readInt_negative()
 		{
 			var reader = new StringReader("-1234567890");
@@ -345,7 +345,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readInt_invalid()
 		{
 			var reader = new StringReader("12.34");
@@ -356,7 +356,7 @@ namespace Brigadier.NET.Tests
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void readInt_none()
 		{
 			var reader = new StringReader("");
@@ -367,7 +367,7 @@ namespace Brigadier.NET.Tests
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void readInt_withRemaining()
 		{
 			var reader = new StringReader("1234567890 foo bar");
@@ -376,7 +376,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo(" foo bar");
 		}
 
-		[Fact]
+		[Test]
 		public void readInt_withRemainingImmediate()
 		{
 			var reader = new StringReader("1234567890foo bar");
@@ -385,7 +385,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("foo bar");
 		}
 
-		[Fact]
+		[Test]
 		public void ReadLong()
 		{
 			var reader = new StringReader("1234567890");
@@ -394,7 +394,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readLong_negative()
 		{
 			var reader = new StringReader("-1234567890");
@@ -403,7 +403,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readLong_invalid()
 		{
 			var reader = new StringReader("12.34");
@@ -414,7 +414,7 @@ namespace Brigadier.NET.Tests
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void readLong_none()
 		{
 			var reader = new StringReader("");
@@ -425,7 +425,7 @@ namespace Brigadier.NET.Tests
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void readLong_withRemaining()
 		{
 			var reader = new StringReader("1234567890 foo bar");
@@ -434,7 +434,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo(" foo bar");
 		}
 
-		[Fact]
+		[Test]
 		public void readLong_withRemainingImmediate()
 		{
 			var reader = new StringReader("1234567890foo bar");
@@ -443,7 +443,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("foo bar");
 		}
 
-		[Fact]
+		[Test]
 		public void ReadDouble()
 		{
 			var reader = new StringReader("123");
@@ -452,7 +452,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readDouble_withDecimal()
 		{
 			var reader = new StringReader("12.34");
@@ -461,7 +461,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readDouble_negative()
 		{
 			var reader = new StringReader("-123");
@@ -470,7 +470,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readDouble_invalid()
 		{
 			var reader = new StringReader("12.34.56");
@@ -480,7 +480,7 @@ namespace Brigadier.NET.Tests
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void readDouble_none()
 		{
 			var reader = new StringReader("");
@@ -490,7 +490,7 @@ namespace Brigadier.NET.Tests
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void readDouble_withRemaining()
 		{
 			var reader = new StringReader("12.34 foo bar");
@@ -499,7 +499,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo(" foo bar");
 		}
 
-		[Fact]
+		[Test]
 		public void readDouble_withRemainingImmediate()
 		{
 			var reader = new StringReader("12.34foo bar");
@@ -508,7 +508,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("foo bar");
 		}
 
-		[Fact]
+		[Test]
 		public void ReadFloat()
 		{
 			var reader = new StringReader("123");
@@ -517,7 +517,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readFloat_withDecimal()
 		{
 			var reader = new StringReader("12.34");
@@ -526,7 +526,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readFloat_negative()
 		{
 			var reader = new StringReader("-123");
@@ -535,7 +535,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("");
 		}
 
-		[Fact]
+		[Test]
 		public void readFloat_invalid()
 		{
 			var reader = new StringReader("12.34.56");
@@ -546,7 +546,7 @@ namespace Brigadier.NET.Tests
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void readFloat_none()
 		{
 			var reader = new StringReader("");
@@ -557,7 +557,7 @@ namespace Brigadier.NET.Tests
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void readFloat_withRemaining()
 		{
 			var reader = new StringReader("12.34 foo bar");
@@ -566,7 +566,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo(" foo bar");
 		}
 
-		[Fact]
+		[Test]
 		public void readFloat_withRemainingImmediate()
 		{
 			var reader = new StringReader("12.34foo bar");
@@ -575,7 +575,7 @@ namespace Brigadier.NET.Tests
 			reader.Remaining.Should().BeEquivalentTo("foo bar");
 		}
 
-		[Fact]
+		[Test]
 		public void expect_correct()
 		{
 			var reader = new StringReader("abc");
@@ -583,7 +583,7 @@ namespace Brigadier.NET.Tests
 			reader.Cursor.Should().Be(1);
 		}
 
-		[Fact]
+		[Test]
 		public void expect_incorrect()
 		{
 			var reader = new StringReader("bcd");
@@ -593,7 +593,7 @@ namespace Brigadier.NET.Tests
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void expect_none()
 		{
 			var reader = new StringReader("");
@@ -603,7 +603,7 @@ namespace Brigadier.NET.Tests
 				.Where(ex => ex.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void readBoolean_correct()
 		{
 			var reader = new StringReader("true");
@@ -611,7 +611,7 @@ namespace Brigadier.NET.Tests
 			reader.Read.Should().BeEquivalentTo("true");
 		}
 
-		[Fact]
+		[Test]
 		public void readBoolean_incorrect()
 		{
 			var reader = new StringReader("tuesday");
@@ -621,7 +621,7 @@ namespace Brigadier.NET.Tests
 				.Where(e => e.Cursor == 0);
 		}
 
-		[Fact]
+		[Test]
 		public void readBoolean_none()
 		{
 			var reader = new StringReader("");
