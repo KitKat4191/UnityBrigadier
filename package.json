@@ -1,0 +1,19 @@
+{
+  "name": "com.kitkat.unity-brigadier",
+  "version": "0.0.1",
+  "displayName": "Unity Brigadier",
+  "description": "Brigadier is a command parser & dispatcher, designed and developed for Minecraft: Java Edition.",
+  "author": {
+    "name": "KitKat",
+    "url": "https://github.com/KitKat4191"
+  },
+  "unity": "2022.3",
+  "unityRelease": "22f1",
+  "keywords": [
+    "mojang",
+    "brigadier",
+    "command",
+    "parser",
+    "dispatcher"
+  ]
+}
