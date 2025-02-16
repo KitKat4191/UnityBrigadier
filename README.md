@@ -1,5 +1,6 @@
 
-# UnityBrigadier [![Latest release](https://img.shields.io/github/v/release/KitKat4191/UnityBrigadier.svg)](https://github.com/KitKat4191/UnityBrigadier/releases/latest) [![License](https://img.shields.io/github/license/KitKat4191/UnityBrigadier.svg)](https://github.com/KitKat4191/UnityBrigadier/blob/master/LICENSE)
+# UnityBrigadier
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/KitKat4191/UnityBrigadier/release.yml)](https://github.com/KitKat4191/UnityBrigadier/actions) [![Latest release](https://img.shields.io/github/v/release/KitKat4191/UnityBrigadier.svg)](https://github.com/KitKat4191/UnityBrigadier/releases/latest) [![License](https://img.shields.io/github/license/KitKat4191/UnityBrigadier.svg)](https://github.com/KitKat4191/UnityBrigadier/blob/master/LICENSE)
 
 UnityBrigadier is a port of AtomicBlom's [Brigadier.NET](https://github.com/AtomicBlom/Brigadier.NET), which itself is a port of Mojang's [brigadier](https://github.com/mojang/brigadier).
 
